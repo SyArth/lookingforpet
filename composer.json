@@ -5,6 +5,7 @@
         "php": "^7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "friendsofsymfony/ckeditor-bundle": "^2.2",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/asset": "5.1.*",
         "symfony/console": "5.1.*",
@@ -29,6 +30,7 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "5.1.*",
         "symfony/web-link": "5.1.*",
+        "symfony/webpack-encore-bundle": "^1.7",
         "symfony/yaml": "5.1.*",
         "symfonycasts/reset-password-bundle": "^1.1",
         "symfonycasts/verify-email-bundle": "^1.0"
@@ -86,7 +88,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.1.*"
         }
     }
