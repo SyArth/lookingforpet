@@ -1,17 +1,27 @@
 version: '3.1'
 
 services:
-    database:
+    db:
         image: mysql:5.7
         depends_on:
         - redis
-        ports: [3306]
-
+        ports:
+          - "3306:3306"
         environment:
-          POSTGRES_USER: main
-          POSTGRES_PASSWORD: main
-          POSTGRES_DB: main
-       
+          MYSQL_USER: main
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DB: main
+        
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+          - PMA_ARBITRARY=1
+        restart: always
+        ports:
+         - 8899:80
+        
 
     redis:
         image: redis
