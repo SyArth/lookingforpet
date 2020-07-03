@@ -1,4 +1,15 @@
 # Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbar: full
+    toolbars:
+        items:
+            full.colors: [ "TextColor", "BGColor" ]
+            full.document: [ "Source", "-", "Preview", "Print" ]
+    input_sync: true
+    filebrowserBrowseRoute: elfinder
+    filebrowserBrowseRouteParameters: []
 
 twig:
     form_themes:
