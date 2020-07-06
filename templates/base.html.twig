@@ -6,6 +6,14 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
+        <header>
+            <h1><a href="{{path('accueil')}}"></a>Looking for pet</h1>
+            <ul>
+                {% for animal in animaux %}
+                    <li><a href="{{path('animal', {slug: Animal.slug})}}"></a>{{animal}}</li>
+                {% endfor %}
+            </ul>
+        </header>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

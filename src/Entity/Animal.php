@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Repository\AnimalRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass=AnimalRepository::class)
+ * @UniqueEntity("slug")
  */
 class Animal
 {
@@ -23,7 +26,7 @@ class Animal
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 
@@ -83,6 +86,13 @@ class Animal
         $this->slug = $slug;
 
         return $this;
+    }
+
+    public function computeSlug(SluggerInterface $slugger)
+    {
+        if(!$this->slug || '-' === $this->slug){
+            $this->slug = (string) $slugger->slug((string) $this)->lower();
+        }
     }
 
     public function getCommentaire(): ?string

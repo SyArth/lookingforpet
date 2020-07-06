@@ -20,7 +20,7 @@ class UserController extends AbstractController
         ]);
     }
      /**
-     * @Route("/user/signalement", name="user_signalement")
+     * @Route("/{slug}/signalement", name="signalement")
      */
     public function signalement(Request $request)
     {
