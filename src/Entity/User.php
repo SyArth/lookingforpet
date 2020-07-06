@@ -60,9 +60,20 @@ class User implements UserInterface
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $pseudo;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="user")
+     */
+    private $signalements;
+
     public function __construct()
     {
         $this->animaux = new ArrayCollection();
+        $this->signalements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,5 +230,48 @@ class User implements UserInterface
         if(!$this->slug || '-' === $this->slug){
             $this->slug = (string) $slugger->slug((string) $this)->lower();
         }
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(?string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Signalement[]
+     */
+    public function getSignalements(): Collection
+    {
+        return $this->signalements;
+    }
+
+    public function addSignalement(Signalement $signalement): self
+    {
+        if (!$this->signalements->contains($signalement)) {
+            $this->signalements[] = $signalement;
+            $signalement->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignalement(Signalement $signalement): self
+    {
+        if ($this->signalements->contains($signalement)) {
+            $this->signalements->removeElement($signalement);
+            // set the owning side to null (unless already changed)
+            if ($signalement->getUser() === $this) {
+                $signalement->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\MembreRepository;
+use App\Repository\LieuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MembreRepository::class)
+ * @ORM\Entity(repositoryClass=LieuRepository::class)
  */
-class Membre
+class Lieu
 {
     /**
      * @ORM\Id()
@@ -20,28 +20,32 @@ class Membre
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Animal::class, inversedBy="lieux")
+     */
+    private $animal;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $prenom;
+    private $rue;
 
     /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="membre", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="float", nullable=true)
      */
-    private $user;
+    private $latitude;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
-    private $telephone;
+    private $longitude;
 
     /**
-     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="membre")
+     * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="animal")
      */
     private $signalements;
 
@@ -49,11 +53,6 @@ class Membre
      * @ORM\OneToMany(targetEntity=Retrouve::class, mappedBy="animal")
      */
     private $retrouves;
-
-    /**
-     * @ORM\OneToOne(targetEntity=Adresse::class, mappedBy="membre", cascade={"persist", "remove"})
-     */
-    private $adresse;
 
     public function __construct()
     {
@@ -66,50 +65,62 @@ class Membre
         return $this->id;
     }
 
+    public function getAnimal(): ?Animal
+    {
+        return $this->animal;
+    }
+
+    public function setAnimal(?Animal $animal): self
+    {
+        $this->animal = $animal;
+
+        return $this;
+    }
+
     public function getNom(): ?string
     {
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getRue(): ?string
     {
-        return $this->prenom;
+        return $this->rue;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setRue(?string $rue): self
     {
-        $this->prenom = $prenom;
+        $this->rue = $rue;
 
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getLatitude(): ?float
     {
-        return $this->user;
+        return $this->latitude;
     }
 
-    public function setUser(User $user): self
+    public function setLatitude(?float $latitude): self
     {
-        $this->user = $user;
+        $this->latitude = $latitude;
 
         return $this;
     }
 
-    public function getTelephone(): ?string
+    public function getLongitude(): ?float
     {
-        return $this->telephone;
+        return $this->longitude;
     }
 
-    public function setTelephone(?string $telephone): self
+    public function setLongitude(?float $longitude): self
     {
-        $this->telephone = $telephone;
+        $this->longitude = $longitude;
 
         return $this;
     }
@@ -126,7 +137,7 @@ class Membre
     {
         if (!$this->signalements->contains($signalement)) {
             $this->signalements[] = $signalement;
-            $signalement->setMembre($this);
+            $signalement->setLieu($this);
         }
 
         return $this;
@@ -137,8 +148,8 @@ class Membre
         if ($this->signalements->contains($signalement)) {
             $this->signalements->removeElement($signalement);
             // set the owning side to null (unless already changed)
-            if ($signalement->getMembre() === $this) {
-                $signalement->setMembre(null);
+            if ($signalement->getLieu() === $this) {
+                $signalement->setLieu(null);
             }
         }
 
@@ -157,7 +168,7 @@ class Membre
     {
         if (!$this->retrouves->contains($retrouve)) {
             $this->retrouves[] = $retrouve;
-            $retrouve->setMembre($this);
+            $retrouve->setLieu($this);
         }
 
         return $this;
@@ -168,27 +179,9 @@ class Membre
         if ($this->retrouves->contains($retrouve)) {
             $this->retrouves->removeElement($retrouve);
             // set the owning side to null (unless already changed)
-            if ($retrouve->getMembre() === $this) {
-                $retrouve->setMembre(null);
+            if ($retrouve->getLieu() === $this) {
+                $retrouve->setLieu(null);
             }
-        }
-
-        return $this;
-    }
-
-    public function getAdresse(): ?Adresse
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(?Adresse $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newMembre = null === $adresse ? null : $this;
-        if ($adresse->getMembre() !== $newMembre) {
-            $adresse->setMembre($newMembre);
         }
 
         return $this;
