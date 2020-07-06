@@ -48,6 +48,11 @@ class User implements UserInterface
      */
     private $animaux;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Membre::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $membre;
+
     public function __construct()
     {
         $this->animaux = new ArrayCollection();
@@ -169,6 +174,23 @@ class User implements UserInterface
             if ($animaux->getUser() === $this) {
                 $animaux->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(Membre $membre): self
+    {
+        $this->membre = $membre;
+
+        // set the owning side of the relation if necessary
+        if ($membre->getUser() !== $this) {
+            $membre->setUser($this);
         }
 
         return $this;
