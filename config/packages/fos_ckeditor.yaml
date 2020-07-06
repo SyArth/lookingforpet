@@ -8,8 +8,6 @@ fos_ck_editor:
             full.colors: [ "TextColor", "BGColor" ]
             full.document: [ "Source", "-", "Preview", "Print" ]
     input_sync: true
-    filebrowserBrowseRoute: elfinder
-    filebrowserBrowseRouteParameters: []
 
 twig:
     form_themes:
