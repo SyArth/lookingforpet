@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\SignalementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
+ * @\ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass=SignalementRepository::class)
  */
 class Signalement
@@ -57,6 +59,15 @@ class Signalement
         $this->created_at = $created_at;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @return void
+     */
+    public function setCreatedAtValue()
+    {
+        $this->created_at = new \DateTime();
     }
 
     public function getMembre(): ?Membre

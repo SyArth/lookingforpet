@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Animal;
 use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
+use App\Repository\SignalementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,10 +52,12 @@ class AnimalController extends AbstractController
     /**
      * @Route("/{id}", name="animal_show", methods={"GET"})
      */
-    public function show(Animal $animal): Response
+    public function show(Animal $animal, SignalementRepository $signalementRepository): Response
     {
         return $this->render('animal/show.html.twig', [
             'animal' => $animal,
+            'signalements' => $signalementRepository->findBy(['animal' => $animal,
+            ['created_at'=> 'DESC']])
         ]);
     }
 

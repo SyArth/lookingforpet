@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RetrouveRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * @ORM\Entity(repositoryClass=RetrouveRepository::class)
@@ -14,6 +15,7 @@ class Retrouve
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @ORM\HasLifecycleCallback()
      */
     private $id;
 
@@ -45,6 +47,15 @@ class Retrouve
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+/**
+     * @ORM\PrePersist
+     * @return void
+     */
+    public function setCreatedAtValue()
+    {
+        $this->created_at = new \DateTime();
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
