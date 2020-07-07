@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
- * @\ORM\HasLifecycleCallbacks()
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity(repositoryClass=SignalementRepository::class)
  */
 class Signalement

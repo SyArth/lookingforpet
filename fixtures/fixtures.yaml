@@ -1,0 +1,35 @@
+App\Entity\Animal:
+    animal_{1..100}:
+      nom: <name()>
+      commentaire: <text(100)>
+      user: '@user_*'
+      slug: <name()>
+      active: '70%? true : false'
+      famille: '@famille_*'
+      signalements: '<numberBetween(1, 30)>x @signalement_*'
+      retrouves: '<numberBetween(1, 20)>x @retrouve_*'
+      #images: '<numberBetween(1, 4)>x @image_*'
+      #image: http://picsum.photos/id/<numberBetween(400, 800)>/290/180
+  
+App\Entity\User:
+    user_{1..500}:
+      email: <email()>
+      password: <password()>
+      slug: <name()>
+
+App\Entity\Signalement:
+    signalement_{1..30}:
+  
+    
+App\Entity\Retrouve:
+    retrouve_{1..20}:
+  
+  
+App\Entity\Famille:
+    famille_{1..2}:
+      nom: '50%? Chien : Chat'
+      slug: <name()>
+  
+  #App\Entity\Image:
+    #{100..500}:
+    #nom: http://picsum.photos/id/<numberBetween(100, 380)>/290/180

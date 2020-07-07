@@ -8,9 +8,9 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                
                 <th>Nom</th>
-                <th>Slug</th>
+                
                 <th>Commentaire</th>
                 <th>Created_at</th>
                 <th>Active</th>
@@ -20,9 +20,9 @@
         <tbody>
         {% for animal in animaux %}
             <tr>
-                <td>{{ animal.id }}</td>
+               
                 <td>{{ animal.nom }}</td>
-                <td>{{ animal.slug }}</td>
+                
                 <td>{{ animal.commentaire }}</td>
                 <td>{{ animal.createdAt ? animal.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ animal.active ? 'Yes' : 'No' }}</td>

@@ -1,0 +1,9 @@
+easy_admin:
+    entities:
+        Membre:
+            class: App\Entity\Membre
+            list:
+                fields:
+                    - nom
+                    - prenom
+                    - telephone

@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use App\Repository\RetrouveRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+
 
 /**
  * @ORM\Entity(repositoryClass=RetrouveRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Retrouve
 {
@@ -15,12 +16,13 @@ class Retrouve
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @ORM\HasLifecycleCallback()
+     * 
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     * 
      */
     private $created_at;
 

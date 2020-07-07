@@ -8,11 +8,7 @@
     <body>
         <header>
             <h1><a href="{{path('accueil')}}"></a>Looking for pet</h1>
-            <ul>
-                {% for animaux in animal %}
-                    <li><a href="{{path('animal', {slug: Animal.slug})}}"></a>{{animal}}</li>
-                {% endfor %}
-            </ul>
+            
         </header>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}

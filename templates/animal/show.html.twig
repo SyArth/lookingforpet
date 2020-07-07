@@ -13,12 +13,7 @@
             </tr>
         </tbody>
     </table>
-    {% if signalements|length > 0 %}
-        <h4>{{animal.nom}}a été aperçu le {{signalement.created_at}} à {{signalement.lieu}}
-             par{{ signalement.user|signalement.membre}}.</h4>
-    {% else %}
-        <div>Aucun signalement pour {{animal.nom}}</div>
-    {% endif %}
+    
  
 
     <a href="{{ path('animal_index') }}">back to list</a>

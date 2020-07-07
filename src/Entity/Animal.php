@@ -11,8 +11,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
- * @ORM\HasLifecycleCallback()
  * @ORM\Entity(repositoryClass=AnimalRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  * @UniqueEntity("slug")
  */
 class Animal
@@ -330,7 +330,7 @@ class Animal
 
     public function __toString()
     {
-        return $this->name;
+        return $this->nom;
     }
     
 }
