@@ -9,7 +9,7 @@
         <header>
             <h1><a href="{{path('accueil')}}"></a>Looking for pet</h1>
             <ul>
-                {% for animal in animaux %}
+                {% for animaux in animal %}
                     <li><a href="{{path('animal', {slug: Animal.slug})}}"></a>{{animal}}</li>
                 {% endfor %}
             </ul>

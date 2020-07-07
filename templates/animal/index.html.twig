@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Animal index{% endblock %}
+
+{% block body %}
+    <h1>Animal index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Slug</th>
+                <th>Commentaire</th>
+                <th>Created_at</th>
+                <th>Active</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for animal in animaux %}
+            <tr>
+                <td>{{ animal.id }}</td>
+                <td>{{ animal.nom }}</td>
+                <td>{{ animal.slug }}</td>
+                <td>{{ animal.commentaire }}</td>
+                <td>{{ animal.createdAt ? animal.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ animal.active ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('animal_show', {'id': animal.id}) }}">show</a>
+                    <a href="{{ path('animal_edit', {'id': animal.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('animal_new') }}">Create new</a>
+{% endblock %}

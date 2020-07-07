@@ -3,14 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Animal;
-use App\Entity\Famille;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class AnimalType extends AbstractType
 {
@@ -18,14 +16,17 @@ class AnimalType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class)
+            ->add('slug')
             ->add('commentaire', TextareaType::class)
-            ->add('famille', EntityType::class, [
-                'class' => Famille::class,
-            ])
-            ->add('SIGNALER', SubmitType::class)
+            ->add('created_at')
+            ->add('active')
+            ->add('user')
+            ->add('famille')
+            ->add('tatouage')
+            ->add('puce')
         ;
     }
-
+  
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
