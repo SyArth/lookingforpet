@@ -77,6 +77,11 @@ class Famille
         return $this;
     }
 
+    /**
+     * Méthode computeSlug() 
+     * @param SluggerInterface $slugger
+     * @return void
+     */
     public function computeSlug(SluggerInterface $slugger)
     {
         if(!$this->slug || '-' === $this->slug){

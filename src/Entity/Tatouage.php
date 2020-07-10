@@ -5,11 +5,12 @@ namespace App\Entity;
 use App\Repository\TatouageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass=TatouageRepository::class)
- *  @UniqueEntity(fields={"numero"}, message="Un animal a déjà ce tatouage.")
+ * @UniqueEntity(fields={"numero"}, message="Un animal a déjà ce tatouage.")
  */
 class Tatouage
 {
@@ -21,7 +22,8 @@ class Tatouage
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=10, nullable=true, unique=true)
+     * @ORM\Column(type="string", nullable=true, unique=true)
+     * @Assert\Regex(pattern="/^[0-9][A-Z]{3}[0-9]{3}$/")
      */
     private $numero;
 

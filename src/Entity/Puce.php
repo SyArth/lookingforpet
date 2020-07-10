@@ -20,7 +20,7 @@ class Puce
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $puce;
+    private $puceOK;
 
     /**
      * @ORM\OneToOne(targetEntity=Animal::class, inversedBy="puce", cascade={"persist", "remove"})

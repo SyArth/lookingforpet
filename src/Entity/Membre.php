@@ -55,6 +55,9 @@ class Membre
      */
     private $adresse;
 
+    /**
+     * Membre constructor
+     */
     public function __construct()
     {
         $this->signalements = new ArrayCollection();

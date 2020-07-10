@@ -86,11 +86,20 @@ class Animal
      */
     private $retrouves;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="animal", orphanRemoval=true)
+     */
+    private $images;
+
+    /**
+     * Animal constructor
+     */
     public function __construct()
     {
         $this->lieux = new ArrayCollection();
         $this->signalements = new ArrayCollection();
         $this->retrouves = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     
@@ -331,6 +340,37 @@ class Animal
     public function __toString()
     {
         return $this->nom;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getAnimal() === $this) {
+                $image->setAnimal(null);
+            }
+        }
+
+        return $this;
     }
     
 }

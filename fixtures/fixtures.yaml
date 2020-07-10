@@ -8,8 +8,7 @@ App\Entity\Animal:
       famille: '@famille_*'
       signalements: '<numberBetween(1, 30)>x @signalement_*'
       retrouves: '<numberBetween(1, 20)>x @retrouve_*'
-      #images: '<numberBetween(1, 4)>x @image_*'
-      #image: http://picsum.photos/id/<numberBetween(400, 800)>/290/180
+      images: '<numberBetween(1, 4)>x @image_*'
   
 App\Entity\User:
     user_{1..500}:
@@ -30,6 +29,6 @@ App\Entity\Famille:
       nom: '50%? Chien : Chat'
       slug: <name()>
   
-  #App\Entity\Image:
-    #{100..500}:
-    #nom: http://picsum.photos/id/<numberBetween(100, 380)>/290/180
+App\Entity\Image:
+    image_{100..500}:
+      nom: http://picsum.photos/id/<numberBetween(100, 380)>/290/180
