@@ -33,11 +33,11 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun animal perdu !!</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('animal_new') }}">Create new</a>
+    <a href="{{ path('animal_new') }}">Signalez un animal perdu</a>
 {% endblock %}

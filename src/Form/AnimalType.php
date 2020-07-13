@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class AnimalType extends AbstractType
 {
@@ -18,13 +19,14 @@ class AnimalType extends AbstractType
         $builder
             ->add('nom', TextType::class)
             ->add('slug')
-            ->add('commentaire', TextareaType::class)
+            ->add('commentaire', CKEditorType::class)
             ->add('created_at', DateType::class)
             ->add('active')
             ->add('user')
             ->add('famille')
             ->add('tatouage')
             ->add('puce')
+            ->add('Validez', SubmitType::class)   
         ;
     }
   

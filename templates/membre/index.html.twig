@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Membre index{% endblock %}
+{% block title %}Liste des membres{% endblock %}
+
+{% block monTitre %}Liste des membres{% endblock %}
 
 {% block body %}
-    <h1>Membre index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Nom</th>
-                <th>Prenom</th>
-                <th>Telephone</th>
+                <th>Prénom</th>
+                <th>Téléphone</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -24,16 +24,16 @@
                 <td>{{ membre.telephone }}</td>
                 <td>
                     <a href="{{ path('membre_show', {'id': membre.id}) }}">show</a>
-                    <a href="{{ path('membre_edit', {'id': membre.id}) }}">edit</a>
+                    <a href="{{ path('membre_edit', {'id': membre.id}) }}">Je modifie le profil</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Aucun membre inscrit</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('membre_new') }}">Create new</a>
+    <a href="{{ path('membre_new') }}">Inscrire un nouveau membre !</a>
 {% endblock %}

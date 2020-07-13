@@ -46,7 +46,7 @@ class Membre
     private $signalements;
 
      /**
-     * @ORM\OneToMany(targetEntity=Retrouve::class, mappedBy="animal")
+     * @ORM\OneToMany(targetEntity=Retrouve::class, mappedBy="membre")
      */
     private $retrouves;
 
@@ -56,10 +56,16 @@ class Membre
     private $adresse;
 
     /**
+     * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="membre")
+     */
+    private $animaux;
+
+    /**
      * Membre constructor
      */
     public function __construct()
     {
+        $this->animaux = new ArrayCollection();
         $this->signalements = new ArrayCollection();
         $this->retrouves = new ArrayCollection();
     }
@@ -197,8 +203,42 @@ class Membre
         return $this;
     }
 
+   
+
+    /**
+     * @return Collection|Animal[]
+     */
+    public function getAnimaux(): Collection
+    {
+        return $this->animaux;
+    }
+
+    public function addAnimaux(Animal $animaux): self
+    {
+        if (!$this->animaux->contains($animaux)) {
+            $this->animaux[] = $animaux;
+            $animaux->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnimaux(Animal $animaux): self
+    {
+        if ($this->animaux->contains($animaux)) {
+            $this->animaux->removeElement($animaux);
+            // set the owning side to null (unless already changed)
+            if ($animaux->getMembre() === $this) {
+                $animaux->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
     public function __toString()
     {
         return $this->nom;
     }
+    
 }

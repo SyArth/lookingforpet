@@ -1,34 +1,49 @@
-App\Entity\Animal:
-    animal_{1..100}:
-      nom: <name()>
-      commentaire: <text(100)>
-      user: '@user_*'
-      slug: <name()>
-      active: '70%? true : false'
-      famille: '@famille_*'
-      signalements: '<numberBetween(1, 30)>x @signalement_*'
-      retrouves: '<numberBetween(1, 20)>x @retrouve_*'
-      images: '<numberBetween(1, 4)>x @image_*'
-  
 App\Entity\User:
-    user_{1..500}:
-      email: <email()>
-      password: <password()>
-      slug: <name()>
+  user_{1..500}:
+    email (unique): <email()>
+    password: <password()>
+    pseudo (unique): <userName()>
+    membre: '@membre_*'
+
+
+
+App\Entity\Famille:
+  famille_{1..2}:
+     nom: '60%? chien : chat'
+
+App\Entity\Membre:
+  membre_{1..250}:
+    user: '@user_*'
+    nom: <lastName()>
+    prenom: <firstName()>
+    telephone: <phoneNumber()>
+    animaux: '@animal_*'
 
 App\Entity\Signalement:
-    signalement_{1..30}:
-  
-    
+  signalement_{1..30}:
+    user: '@user_*'
+    animal: '@animal_*'
+    commentaire: <sentence($nbWords = 6, $variableNbWords = true)>
+      
 App\Entity\Retrouve:
-    retrouve_{1..20}:
-  
-  
-App\Entity\Famille:
-    famille_{1..2}:
-      nom: '50%? Chien : Chat'
-      slug: <name()>
-  
+  retrouve_{1..20}:
+    user: '@user_*'
+    animal: '@animal_*' 
+     
 App\Entity\Image:
-    image_{100..500}:
-      nom: http://picsum.photos/id/<numberBetween(100, 380)>/290/180
+  image_{100..500}:
+     nom: http://picsum.photos/id/<numberBetween(100, 380)>/290/180
+
+App\Entity\Animal:
+  animal_{1..300}:
+    nom: <name()>
+    commentaire: <text(100)>
+    membre: '<numberBetween(1, 200)>x @membre_*'
+    active: '70%? 1 : 0'
+    famille: '@famille_*'
+    signalements: '<numberBetween(1, 30)>x @signalement_*'
+    retrouves: '<numberBetween(1, 20)>x @retrouve_*'
+    images: '<numberBetween(1, 4)>x @image_*'
+  
+
+

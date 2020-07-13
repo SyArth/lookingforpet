@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=PuceRepository::class)
+ * @UniqueEntity(fields={"numero"}, message="Un animal a déjà ce numero de puce.")
  */
 class Puce
 {
@@ -22,13 +23,14 @@ class Puce
    
     /**
      * @ORM\OneToOne(targetEntity=Animal::class, inversedBy="puce", cascade={"persist", "remove"})
-     * @UniqueEntity(fields={"numero"}, message="Un animal a déjà ce numero de puce.")
+     * 
      */
     private $animal;
 
     /**
      * @ORM\Column(type="string", length=15, nullable=true, unique=true)
      * @Assert\Regex(pattern="/^[0-9]{3}[0-9]{2}[0-9]{2}[0-9]{8}$/")
+     *
      */
     private $numero;
 
