@@ -1,14 +1,22 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ path('animal_index') }}">Looking for pet</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark text-white">
+    <div class="container mt-4 mb-3">
+        <a class="navbar-brand mr-4 pr-2" href="{{ path('accueil') }}">
+            🐶 {{ 'Looking for pet'}} 😺
+        </a>
 
-    <div class="collapse navbar-collapse" id="navbarColor02">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#header-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Afficher/Cacher la navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            </li>
+        <div class="collapse navbar-collapse" id="header-menu">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="#">
+                        Admin
+                    </a>
+                </li>
+
+            </ul>
+        </div>
     </div>
-
 </nav>
