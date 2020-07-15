@@ -2,21 +2,27 @@
 
 {% block title %}Hello MainController!{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block monTitre %}Bienvenue !!!{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    {% for flashSuccess in app.flashes('success') %}
-    <div class="alert alert-success" role="alert">{{ flashError }}</div>
-{% endfor %}
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/lookingfor-d/lookingforpet/src/Controller/MainController.php'|file_link(0) }}">src/Controller/MainController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/lookingfor-d/lookingforpet/templates/main/index.html.twig'|file_link(0) }}">templates/main/index.html.twig</a></code></li>
-    </ul>
+{% block body %}
+</div>
+<div class="container">
+    <h2>Nos compagnons disparus</h2>
+    <div class="row flex">
+        {% for animal in animaux %}
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{path('animal_show', {id: animal.id})}}">{{ animal.nom }}</a>
+                    </h5>
+                    <p class="card-text">
+                        {{ animal.commentaire }} </p>
+                    <div class="text-primary">{{ animal.user}}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

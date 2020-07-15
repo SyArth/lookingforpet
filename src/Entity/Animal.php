@@ -7,13 +7,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\String\Slugger\SluggerInterface;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=AnimalRepository::class)
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity("slug")
  */
 class Animal
 {
@@ -31,6 +29,7 @@ class Animal
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Regex(pattern="/^[A-Z]{3}[0-9]{4}$/")
      */
     private $slug;
 
@@ -40,7 +39,7 @@ class Animal
     private $commentaire;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $created_at;
 
@@ -51,13 +50,13 @@ class Animal
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="animaux")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity=Famille::class, inversedBy="animaux")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="famille_id", referencedColumnName="id")
      */
     private $famille;
 
@@ -93,11 +92,10 @@ class Animal
 
     /**
      * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="animaux")
+     * @ORM\JoinColumn(name="membre_id", referencedColumnName="id")
      */
     private $membre;
 
-    
-   
 
     /**
      * Animal constructor
@@ -109,8 +107,6 @@ class Animal
         $this->retrouves = new ArrayCollection();
         $this->images = new ArrayCollection();
     }
-
-    
 
     public function getId(): ?int
     {
@@ -392,9 +388,5 @@ class Animal
 
         return $this;
     }
-
-    
-
    
-    
 }

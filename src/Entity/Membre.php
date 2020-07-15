@@ -6,9 +6,14 @@ use App\Repository\MembreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+
 
 /**
  * @ORM\Entity(repositoryClass=MembreRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Membre
 {
@@ -29,12 +34,7 @@ class Membre
      */
     private $prenom;
 
-    /**
-     * @ORM\OneToOne(targetEntity=User::class, inversedBy="membre", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
+   
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
@@ -55,19 +55,31 @@ class Membre
      */
     private $adresse;
 
+    
     /**
-     * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="membre")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     */
+    private $created_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="membre", orphanRemoval=true)
      */
     private $animaux;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="membre", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
 
     /**
      * Membre constructor
      */
     public function __construct()
     {
-        $this->animaux = new ArrayCollection();
         $this->signalements = new ArrayCollection();
         $this->retrouves = new ArrayCollection();
+        $this->animaux = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,18 +107,6 @@ class Membre
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -205,6 +205,37 @@ class Membre
 
    
 
+
+   
+    
+ 
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @return void
+     */
+    public function setCreatedAtValue()
+    {
+        $this->created_at = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
     /**
      * @return Collection|Animal[]
      */
@@ -236,9 +267,21 @@ class Membre
         return $this;
     }
 
-    public function __toString()
+    public function getUser(): ?User
     {
-        return $this->nom;
+        return $this->user;
     }
-    
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newMembre = null === $user ? null : $this;
+        if ($user->getMembre() !== $newMembre) {
+            $user->setMembre($newMembre);
+        }
+
+        return $this;
+    }
 }

@@ -49,13 +49,10 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Animal::class, mappedBy="user", orphanRemoval=true)
+     * 
      */
     private $animaux;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Membre::class, mappedBy="user", cascade={"persist", "remove"})
-     */
-    private $membre;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -73,9 +70,14 @@ class User implements UserInterface
     private $signalements;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $created_at;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Membre::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $membre;
 
     /**
      * User constructor
@@ -84,6 +86,7 @@ class User implements UserInterface
     {
         $this->animaux = new ArrayCollection();
         $this->signalements = new ArrayCollection();
+      
     }
 
     public function getId(): ?int
@@ -91,6 +94,7 @@ class User implements UserInterface
         return $this->id;
     }
 
+    
     public function getEmail(): ?string
     {
         return $this->email;
@@ -207,22 +211,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getMembre(): ?Membre
-    {
-        return $this->membre;
-    }
-
-    public function setMembre(Membre $membre): self
-    {
-        $this->membre = $membre;
-
-        // set the owning side of the relation if necessary
-        if ($membre->getUser() !== $this) {
-            $membre->setUser($this);
-        }
-
-        return $this;
-    }
+   
 
     public function getSlug(): ?string
     {
@@ -310,5 +299,17 @@ class User implements UserInterface
     public function __toString()
     {
         return $this->email;
+    }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?Membre $membre): self
+    {
+        $this->membre = $membre;
+
+        return $this;
     }
 }
