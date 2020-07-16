@@ -6,6 +6,7 @@ use App\Entity\Animal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+
 /**
  * @method Animal|null find($id, $lockMode = null, $lockVersion = null)
  * @method Animal|null findOneBy(array $criteria, array $orderBy = null)
@@ -14,6 +15,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AnimalRepository extends ServiceEntityRepository
 {
+
+    
     /**
      * AnimalRepository constructor
      *
@@ -23,5 +26,7 @@ class AnimalRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Animal::class);
     }
+
+    
 
 }
