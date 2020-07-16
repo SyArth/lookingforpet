@@ -24,10 +24,6 @@ class Signalement
      */
     private $created_at;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="signalements")
-     */
-    private $membre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Animal::class, inversedBy="signalements")
@@ -75,17 +71,6 @@ class Signalement
         $this->created_at = new \DateTime();
     }
 
-    public function getMembre(): ?Membre
-    {
-        return $this->membre;
-    }
-
-    public function setMembre(?Membre $membre): self
-    {
-        $this->membre = $membre;
-
-        return $this;
-    }
 
     public function getAnimal(): ?Animal
     {

@@ -32,10 +32,7 @@ class Adresse
      */
     private $rue;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Membre::class, inversedBy="adresse", cascade={"persist", "remove"})
-     */
-    private $membre;
+    
 
     public function getId(): ?int
     {
@@ -78,15 +75,5 @@ class Adresse
         return $this;
     }
 
-    public function getMembre(): ?Membre
-    {
-        return $this->membre;
-    }
-
-    public function setMembre(?Membre $membre): self
-    {
-        $this->membre = $membre;
-
-        return $this;
-    }
+    
 }

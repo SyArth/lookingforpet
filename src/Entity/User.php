@@ -74,10 +74,32 @@ class User implements UserInterface
      */
     private $created_at;
 
+    
+
     /**
-     * @ORM\OneToOne(targetEntity=Membre::class, inversedBy="user", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255)
      */
-    private $membre;
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAdmin;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
 
     /**
      * User constructor
@@ -301,14 +323,63 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function getMembre(): ?Membre
+
+    public function getNom(): ?string
     {
-        return $this->membre;
+        return $this->nom;
     }
 
-    public function setMembre(?Membre $membre): self
+    public function setNom(string $nom): self
     {
-        $this->membre = $membre;
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): self
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getIsAdmin(): ?bool
+    {
+        return $this->isAdmin;
+    }
+
+    public function setIsAdmin(bool $isAdmin): self
+    {
+        $this->isAdmin = $isAdmin;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

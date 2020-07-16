@@ -90,12 +90,6 @@ class Animal
      */
     private $images;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="animaux")
-     * @ORM\JoinColumn(name="membre_id", referencedColumnName="id")
-     */
-    private $membre;
-
 
     /**
      * Animal constructor
@@ -377,16 +371,5 @@ class Animal
         return $this;
     }
 
-    public function getMembre(): ?Membre
-    {
-        return $this->membre;
-    }
-
-    public function setMembre(?Membre $membre): self
-    {
-        $this->membre = $membre;
-
-        return $this;
-    }
    
 }

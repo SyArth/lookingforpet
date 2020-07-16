@@ -5,7 +5,6 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use App\Entity\Animal;
 use App\Entity\Famille;
-use App\Entity\Membre;
 use App\Entity\Signalement;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -49,9 +48,11 @@ class AppFixtures extends Fixture
 
         $familles = [$famille1, $famille2];
 
+        $rand = rand(100, 200);
+
         foreach($familles as $fa){
-            $rand0 = rand(20, 30);
-            for($i=1; $i <= $rand0; $i++){
+           
+            for($i=1; $i <= $rand; $i++){
             
             $animal = new Animal();
             $animal->setNom($this->generator->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'));
@@ -65,43 +66,22 @@ class AppFixtures extends Fixture
                     $signalement->setCommentaire($this->generator->realText($maxNbChars = 200, $indexSize = 2));
                     $manager->persist($signalement);
                 }
-           
-            
-
             $user = new User();
-        $user->setPseudo($this->generator->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'));
-        $user->setEmail($this->generator->email);
-        $user->setPassword("password");
-        $user->addSignalement($signalement);
-        $manager->persist($user);
-        $membre = new Membre();
-        $membre->setPrenom($this->generator->firstName);
-        $membre->setNom($this->generator->lastName);
-        $membre->setTelephone($this->generator->phoneNumber);
-      
-        $membre->addAnimaux($animal);
-        $manager->persist($membre);
+            $user->setPseudo($this->generator->unique()->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'));
+            $user->setEmail($this->generator->unique()->email);
+            $user->setPassword("password");
+            $user->addSignalement($signalement);
+            $user->setPrenom($this->generator->firstName);
+            $user->setNom($this->generator->lastName);
+            $user->setTelephone($this->generator->phoneNumber);
+            $user->setIsAdmin( $this->generator->boolean(false) );
+            $user->setIsActive( $this->generator->boolean('70%? true : false') );
+            $user->addAnimaux($animal);
+            $manager->persist($user);   
         
             }
         }
       
-               
-                
-        
-        $animaux [] = $animal;
-
-        $rand = rand(20, 40);
-        for($i=1; $i <= $rand; $i++){
-        
-        }
-        $users [] = $user;
-
-        $rand1 = rand(10, 20);
-        for($i=1; $i <= $rand1; $i++){
-        
-        }
-        $membres [] = $membre;
- 
         $manager->flush();
     }
 }

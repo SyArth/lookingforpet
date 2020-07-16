@@ -26,11 +26,7 @@ class Retrouve
      */
     private $created_at;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Membre::class, inversedBy="retrouves")
-     */
-    private $membre;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity=Animal::class, inversedBy="retrouves")
      */
@@ -41,11 +37,7 @@ class Retrouve
      */
     private $lieu;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="retrouves")
-     */
-    private $user;
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -72,18 +64,7 @@ class Retrouve
         return $this;
     }
 
-    public function getMembre(): ?Membre
-    {
-        return $this->membre;
-    }
-
-    public function setMembre(?Membre $membre): self
-    {
-        $this->membre = $membre;
-
-        return $this;
-    }
-
+  
     public function getAnimal(): ?Animal
     {
         return $this->animal;
@@ -108,15 +89,5 @@ class Retrouve
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
+    
 }
