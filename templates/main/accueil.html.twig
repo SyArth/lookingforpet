@@ -2,7 +2,7 @@
 
 {% block title %}Hello MainController!{% endblock %}
 
-{% block monTitre %}Il y a {{animaux | length}} avis de recherche{% endblock %}
+{% block monTitre %} Il y a {{animaux | length }} avis de recherche{% endblock %}
 
 {% block body %}
 
@@ -10,11 +10,12 @@
     
     <div class="row flex">
         {% for animal in animaux %}
+
         <div class="col-3">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="{{path('animal_show', {id: animal.id})}}">{{ animal.nom| badge }}</a>
+                        <a href="{{path('animal_show', {id: animal.id})}}">{{ animal.nom | badge}}</a>
                     </h5>
                     <p class="card-text">
                         {{ animal.commentaire }} </p>
@@ -22,8 +23,10 @@
                 </div>
             </div>
         </div>
-       
+          
+      {% endfor %}
 
     </div>
 </div>
+
 {% endblock %}

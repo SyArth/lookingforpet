@@ -102,6 +102,11 @@ class User implements UserInterface
     private $isActive;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="users")
+     */
+    private $adresse;
+
+    /**
      * User constructor
      */
     public function __construct()
@@ -380,6 +385,18 @@ class User implements UserInterface
     public function setIsActive(bool $isActive): self
     {
         $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?Adresse
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Adresse $adresse): self
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }

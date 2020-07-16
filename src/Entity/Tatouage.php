@@ -29,7 +29,6 @@ class Tatouage
 
     /**
      * @ORM\OneToOne(targetEntity=Animal::class, inversedBy="tatouage", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
      */
     private $animal;
 

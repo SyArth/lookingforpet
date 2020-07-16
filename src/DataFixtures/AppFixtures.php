@@ -6,6 +6,8 @@ use App\Entity\User;
 use App\Entity\Animal;
 use App\Entity\Famille;
 use App\Entity\Signalement;
+use App\Entity\Tatouage;
+use App\Entity\Puce;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
 use Doctrine\Persistence\ObjectManager;
@@ -48,6 +50,8 @@ class AppFixtures extends Fixture
 
         $familles = [$famille1, $famille2];
 
+       
+
         $rand = rand(100, 200);
 
         foreach($familles as $fa){
@@ -55,10 +59,22 @@ class AppFixtures extends Fixture
             for($i=1; $i <= $rand; $i++){
             
             $animal = new Animal();
-            $animal->setNom($this->generator->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'));
+            $animal->setNom($this->generator->unique()->city);
             $animal->setCommentaire($this->generator->realText($maxNbChars = 200, $indexSize = 2));
             $animal->setActive(true|false);
             $animal->setFamille($fa);
+            
+            $puce = new Puce();
+            $puce->setNumero($this->generator->unique()->regexify('[0-9]{15}'));
+            $puce->getAnimal($animal);
+            $manager->persist($puce);
+    
+            $tatouage = new Tatouage();
+            $tatouage->setNumero($this->generator->unique()->regexify('[0-9][A-Z]{3}[0-9]{3}'));
+            $tatouage->getAnimal($animal);
+            $manager->persist($tatouage);
+            $animal->setPuce($puce);
+            $animal->setTatouage($tatouage);
             $manager->persist($animal);
                 for($j = 1; $j <= 10; $j++ ){
                     $signalement = new Signalement();
@@ -66,8 +82,10 @@ class AppFixtures extends Fixture
                     $signalement->setCommentaire($this->generator->realText($maxNbChars = 200, $indexSize = 2));
                     $manager->persist($signalement);
                 }
+               
+
             $user = new User();
-            $user->setPseudo($this->generator->unique()->regexify('[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}'));
+            $user->setPseudo($this->generator->unique()->city);
             $user->setEmail($this->generator->unique()->email);
             $user->setPassword("password");
             $user->addSignalement($signalement);
