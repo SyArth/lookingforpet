@@ -7,13 +7,12 @@
         <title>{% block icon %}😺 
             {% block title %}Looking for pet{% endblock title %}
             🐶{% endblock %}</title>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,500,500i,600,600i&display=swap" rel="stylesheet" />
         {{ encore_entry_link_tags('app') }}
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
         
-    <section class="container">
+    <section class="container-fluid">
         {% include("partials/navbar.html.twig") %}
         <h1 class="border border-dark rounded p-2 m-2  text-center text-white bg-dark">{% block monTitre %}{% endblock %}</h1>
         <div class="row">

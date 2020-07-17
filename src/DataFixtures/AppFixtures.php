@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use App\Entity\Animal;
 use App\Entity\Famille;
+use App\Entity\Image;
 use App\Entity\Signalement;
 use App\Entity\Tatouage;
 use App\Entity\Puce;
@@ -68,13 +69,18 @@ class AppFixtures extends Fixture
             $puce->setNumero($this->generator->unique()->regexify('[0-9]{15}'));
             $puce->getAnimal($animal);
             $manager->persist($puce);
-    
+
+            $image = new Image();
+            $image->setNom("https://picsum.photos/400/300");
+            $image->getAnimal($animal);
+            $manager->persist($image);
             $tatouage = new Tatouage();
             $tatouage->setNumero($this->generator->unique()->regexify('[0-9][A-Z]{3}[0-9]{3}'));
             $tatouage->getAnimal($animal);
             $manager->persist($tatouage);
             $animal->setPuce($puce);
             $animal->setTatouage($tatouage);
+            $animal->addImage($image);
             $manager->persist($animal);
                 for($j = 1; $j <= 10; $j++ ){
                     $signalement = new Signalement();

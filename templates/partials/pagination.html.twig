@@ -1,0 +1,21 @@
+<div class="col-12 mt-4">
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% if page > 1 %}
+                <li class="page-item"><a class="page-link" href="{{path("accueil", {page: 1})}}">Première page</a></li>
+            {% endif %}
+            {% if page > 1 %}
+                <li class="page-item"><a class="page-link" href="{{path("accueil", {page: page - 1})}}">Page précédente</a></li>
+            {% endif %}
+            {% for pa in range %}
+                <li class="page-item"><a class="page-link" href="{{path("accueil", {page: pa})}}">{{ pa }}</a></li>
+            {% endfor %}
+            {% if page < pages %}
+                <li class="page-item"><a class="page-link" href="{{path("accueil", {page: page + 1})}}">Page suivante</a></li>
+            {% endif %}
+            {% if page < pages %}
+                <li class="page-item"><a class="page-link" href="{{path("accueil", {page: pages})}}">Dernière page</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>

@@ -1,4 +1,11 @@
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+
+h1 {
+  border-bottom: 2px solid red;
+  color: blue;
+}
 
 body {
     display: flex;

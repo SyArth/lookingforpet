@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Animal;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 
 /**
@@ -15,7 +16,6 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class AnimalRepository extends ServiceEntityRepository
 {
-
     
     /**
      * AnimalRepository constructor
@@ -27,6 +27,19 @@ class AnimalRepository extends ServiceEntityRepository
         parent::__construct($registry, Animal::class);
     }
 
-    
-
+    /**
+     * @param int $page
+     * @param int $limit
+     * @return Paginator
+     */
+    public function getPaginatedAnimaux(int $page, int $limit): Paginator
+    {
+        return new Paginator
+        ( $this->createQueryBuilder("p")
+            ->addSelect("s")
+            ->join("p.signalements","s")
+            ->setMaxResults($limit)
+            ->setFirstResult(($page * $limit) - $limit)
+        );
+    }
 }

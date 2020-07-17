@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Animal
 {
     /**
+     * @var int|null
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -23,6 +24,7 @@ class Animal
     private $id;
 
     /**
+     * @var string|null
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
