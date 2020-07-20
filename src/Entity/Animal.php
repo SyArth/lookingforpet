@@ -88,8 +88,9 @@ class Animal
     private $retrouves;
 
     /**
-     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="animal", orphanRemoval=true, cascade={"persist"})
-     */
+    * @ORM\OneToMany(targetEntity=Image::class, mappedBy="animal", orphanRemoval=true, cascade={"persist"})
+    * @ORM\JoinColumn(nullable=false)
+    */
     private $images;
 
 

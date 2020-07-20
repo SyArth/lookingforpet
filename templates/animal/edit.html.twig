@@ -5,6 +5,17 @@
 {% block body %}
     <h1>Modifier un avis de recherche</h1>
 
+    {{form_start(form)}}
+    {{form_row(form.images)}}
+    {{form_row(form.nom)}}
+    {{form_row(form.commentaire)}}
+    {{form_row(form.puce)}}
+    {{form_row(form.tatouage)}}
+
+    {{form_end(form)}}
+
+
+
     {{ include('animal/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('animal_index') }}">Retour à liste des avis de recherche</a>

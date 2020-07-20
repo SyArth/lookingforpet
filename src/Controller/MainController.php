@@ -35,7 +35,7 @@ class MainController extends AbstractController
             "pages" => $pages,
             "page" => $page,
             "limit" => $limit,
-            "range" => $range
+            "range" => $range,
         ]);
     }
 }

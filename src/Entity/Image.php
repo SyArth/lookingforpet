@@ -28,6 +28,11 @@ class Image
      */
     private $animal;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $alt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,5 +65,17 @@ class Image
     public function __toString()
     {
         return $this->nom;
+    }
+
+    public function getAlt(): ?string
+    {
+        return $this->alt;
+    }
+
+    public function setAlt(string $alt): self
+    {
+        $this->alt = $alt;
+
+        return $this;
     }
 }

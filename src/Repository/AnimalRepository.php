@@ -36,8 +36,8 @@ class AnimalRepository extends ServiceEntityRepository
     {
         return new Paginator
         ( $this->createQueryBuilder("p")
-            ->addSelect("s")
-            ->join("p.signalements","s")
+            ->addSelect("u")
+            ->join("p.user","u")
             ->setMaxResults($limit)
             ->setFirstResult(($page * $limit) - $limit)
         );

@@ -8,6 +8,7 @@ use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
 use App\Repository\SignalementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,17 +22,34 @@ class AnimalController extends AbstractController
     /**
      * @Route("/", name="animal_index", methods={"GET"})
      */
-    public function index(AnimalRepository $animalRepository): Response
-    {
-        return $this->render('animal/index.html.twig', [
-            'animaux' => $animalRepository->findAll(),
+    public function index(AnimalRepository $animalRepository, Request $request): Response
+    {  
+        $limit = $request->get("limit",6);
+        $page = $request->get("page",1);
+
+        /** @var Paginator $animaux */
+            $animaux = $animalRepository->getPaginatedAnimaux(
+            $page,
+            $limit
+        );
+        $pages = ceil($animaux->count()/$limit) ;
+        $range = range(
+            max($page - 3, 1),
+            min($page + 3, $pages)
+        );
+
+        return $this->render("main/accueil.html.twig",[
+            "animaux" => $animaux,
+            "pages" => $pages,
+            "page" => $page,
+            "limit" => $limit,
+            "range" => $range
         ]);
     }
-
     /**
      * @Route("/new", name="animal_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, string $uploadDirRelativePath): Response
     {
         $animal = new Animal();
         $form = $this->createForm(AnimalType::class, $animal);
@@ -39,17 +57,20 @@ class AnimalController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $images = $form->get('images')->getData();
+            $images = $form->get('photos')->getData();
             foreach($images as $image){
-                $fichierImage = md5(uniqid(). '.'. $image->guessExtension());
-                $image->move($this->getParameter('images_directory'), $fichierImage);
-                $img = new Image;
-                $img->setNom($fichierImage);
-                $animal->addImage($img);
-
+                if ($image = $form['photo']->getData()) {
+                    $filename = bin2hex(random_bytes(6)).'.'.$image->guessExtension();
+                try {
+                    $image->move($uploadDirRelativePath, $filename);
+                } catch (FileException $e) {
+                }
+                $img = new Image();
+                $animal->getImages($filename);
+            
             }
 
-
+        }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($animal);
             $entityManager->flush();
@@ -85,11 +106,14 @@ class AnimalController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $images = $form['images']->getData();
+            $images = $form->get('images')->getData();
             foreach($images as $image){
                 $fichierImage = md5(uniqid(). '.'. $image->guessExtension());
-                $image->move($this->getParameter('images_directory'), $fichierImage);
-                $img = new Image;
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichierImage
+                );
+                $img = new Image();
                 $img->setNom($fichierImage);
                 $animal->addImage($img);
 

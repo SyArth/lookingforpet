@@ -1,3 +1,5 @@
+
+
 <nav class="navbar navbar-expand-xl navbar-dark bg-dark text-white">
     <div class="container mt-4 mb-3">
         <a class="navbar-brand mr-4 pr-2" href="{{ path('accueil') }}">
@@ -12,21 +14,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path("accueil") }}">Home</a>
                 </li>
-                {% if is_granted("ROLE_USER") %}
+           
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path("blog_create") }}">Publier un avis de recherhce</a>
+                        <a class="nav-link" href="{{ path("animal_new") }}">Publier un avis de recherche</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path("app_logout") }}">Se déconnecter</a>
                     </li>
-                {% else %}
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path("app_login") }}">Se connecter</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
                     </li>
-                {% endif %}
+         
             </ul>
         </div>
 </nav>

@@ -13,7 +13,12 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\NotNull;
 
+/**
+ * Class AnimalType
+ * @package App\Form
+ */
 class AnimalType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -23,9 +28,10 @@ class AnimalType extends AbstractType
                 'label' => false,
                 'multiple'=> true,
                 'mapped' => false,
-                'required' => true,
+                'required' => false,
                 'constraints' => [
-                    new Image(['maxSize' => '1024k'])
+                    new Image(['maxSize' => '1024k']),
+                    new NotNull()
                 ],
             ])
             ->add('nom', TextType::class, [
