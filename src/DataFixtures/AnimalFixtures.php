@@ -58,6 +58,7 @@ class AnimalFixtures extends Fixture implements DependentFixtureInterface
             $animal = new Animal();
             $animal->setNom($this->generator->unique()->city);
             $animal->setCommentaire($this->generator->realText($maxNbChars = 200, $indexSize = 2));
+
             $animal->setActive('80%? true : false');
             $animal->getFamille('50%? $famille1 : $famille2');
 

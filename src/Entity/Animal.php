@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\AnimalRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,6 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Animal
 {
+    use Timestampable;
+
     /**
      * @var int|null
      * @ORM\Id()
@@ -40,11 +43,7 @@ class Animal
      */
     private $commentaire;
 
-    /**
-     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
-     */
-    private $created_at;
-
+    
     /**
      * @ORM\Column(type="boolean")
      */
@@ -92,6 +91,8 @@ class Animal
     * @ORM\JoinColumn(nullable=false)
     */
     private $images;
+
+    
 
 
     /**
@@ -153,26 +154,7 @@ class Animal
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     * @return void
-     */
-    public function setCreatedAtValue()
-    {
-        $this->created_at = new \DateTime();
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
+    
 
     public function getActive(): ?bool
     {
@@ -374,5 +356,6 @@ class Animal
         return $this;
     }
 
+    
    
 }

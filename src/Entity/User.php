@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,6 +20,9 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  */
 class User implements UserInterface
 {
+
+    use Timestampable;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -69,11 +73,7 @@ class User implements UserInterface
      */
     private $signalements;
 
-    /**
-     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
-     */
-    private $created_at;
-
+    
     
 
     /**
@@ -302,27 +302,6 @@ class User implements UserInterface
     }
 
    
-    /**
-     * @ORM\PrePersist
-     * @return void
-     */
-    public function setCreatedAtValue()
-    {
-        $this->created_at = new \DateTime();
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->email;
