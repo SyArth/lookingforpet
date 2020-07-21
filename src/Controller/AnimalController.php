@@ -75,6 +75,8 @@ class AnimalController extends AbstractController
             $entityManager->persist($animal);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Vous avez publié un nouvel avis de recherche !');
+
             return $this->redirectToRoute('animal_index');
         }
 
@@ -121,6 +123,9 @@ class AnimalController extends AbstractController
 
             }
 
+            $this->addFlash('success', 'Vous avez modifié cet avis de recherche !');
+
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('animal_index');
@@ -141,6 +146,9 @@ class AnimalController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($animal);
             $entityManager->flush();
+
+            $this->addFlash('info', 'Vous avez supprimé un nouvel avis de recherche !');
+
         }
 
         return $this->redirectToRoute('animal_index');

@@ -12,3 +12,18 @@ body {
     flex-direction: column;
     height: 100vh;
 }
+
+.alert {
+  padding: 10px;
+  color: white;
+  text-align: center;
+}
+.alert-success{
+  background-color: green;
+}
+.alert-error{
+  background-color: red;
+}
+.alert-notice{
+  background-color: blue;
+}
