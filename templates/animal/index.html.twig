@@ -23,7 +23,7 @@
                
                 <td>{{ animal.nom }}</td>
                 
-                <td>{{ animal.commentaire }}</td>
+                <td>{{ animal.commentaire | u.truncate(10, '...', false) }}</td>
                 <td>{{ animal.createdAt ? animal.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ animal.active ? 'Yes' : 'No' }}</td>
                 <td>
