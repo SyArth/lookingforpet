@@ -16,9 +16,9 @@
     
     <a href="{{ path('accueil') }}">Accueil</a>
 
-    <a href="{{ path('animal_index') }}">back to list</a>
+    <a href="{{ path('animal_index') }}">Liste des avis de recherche</a>
 
-    <a href="{{ path('animal_edit', {'id': animal.id}) }}">edit</a>
+    <a href="{{ path('animal_edit', {'id': animal.id}) }}">modification d'un avis de recherche</a>
 
     {{ include('animal/_delete_form.html.twig') }}
 {% endblock %}

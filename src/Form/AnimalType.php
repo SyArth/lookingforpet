@@ -25,7 +25,7 @@ class AnimalType extends AbstractType
     {
         $builder
             ->add('images', FileType::class, [
-                'label' => false,
+                'label' => 'Choisissez une photo ou plusieurs photos de votre animal',
                 'multiple'=> true,
                 'mapped' => false,
                 'required' => false,
@@ -42,17 +42,14 @@ class AnimalType extends AbstractType
                 'label' => 'Notez les détails importants concernant votre compagnon (craint-il l\'homme ?)...',
                 
             ])
-            ->add('created_at', DateType::class)
-            ->add('user')
-            ->add('famille',null, [
+            ->add('famille',TextType::class, [
                 'label' => 'Est-ce un chien ou un chat ?',
                 'required' => true
             ])
-            ->add('tatouage', null, [
+            ->add('tatouage', TextType::class, [
                 'label' => 'Quel est son numéro de Tatouage ?'])
-            ->add('puce', null, [
+            ->add('puce', TextType::class, [
                 'label' => 'Quel est son numéro de puce ?'])
-            ->add('Validez', SubmitType::class)   
         ;
     }
   

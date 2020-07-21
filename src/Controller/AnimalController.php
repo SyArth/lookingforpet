@@ -97,11 +97,13 @@ class AnimalController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="animal_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="animal_edit", methods={"GET","PUT"})
      */
     public function edit(Request $request, Animal $animal): Response
     {
-        $form = $this->createForm(AnimalType::class, $animal);
+        $form = $this->createForm(AnimalType::class, $animal, [
+            'method' => 'PUT'
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
