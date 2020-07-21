@@ -29,6 +29,7 @@ class Animal
     /**
      * @var string|null
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $nom;
 
@@ -40,6 +41,7 @@ class Animal
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank
      */
     private $commentaire;
 
@@ -58,6 +60,7 @@ class Animal
     /**
      * @ORM\ManyToOne(targetEntity=Famille::class, inversedBy="animaux")
      * @ORM\JoinColumn(name="famille_id", referencedColumnName="id")
+     * @Assert\NotBlank
      */
     private $famille;
 
