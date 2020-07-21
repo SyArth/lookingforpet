@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    {{ include('animal/_form.html.twig') }}
+    {{ include('animal/_form.html.twig', {submitButtonText: 'Publier un avis de recherche'}) }}
 
     <a href="{{ path('animal_index') }}">Retour à la liste des avis de recherche</a>
 {% endblock %}

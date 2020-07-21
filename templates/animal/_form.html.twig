@@ -11,5 +11,5 @@
             </div>
         {% endfor %}
     {% endif %}
-    <button class="btn btn-success" type="submit">{{ button_label|default('Validez') }}</button>
+    <button class="btn btn-success" type="submit" value="{{submitButtonText}}">{{ button_label|default('Validez') }}</button>
 {{ form_end(form) }}

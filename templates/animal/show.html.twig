@@ -20,7 +20,7 @@
 
     <a href="{{ path('animal_edit', {'id': animal.id}) }}">modification d'un avis de recherche</a>
 
-    <a href="#" onclick="event.preventDefault(); confirm('Êtes-vous sûr de vouloir supprimer cet avis de recherhce ?') && 
+    <a href="#" onclick="event.preventDefault(); confirm('Êtes-vous sûr de vouloir supprimer cet avis de recherhce ?') &&  
     document.getElementById('js-animal-supprimer-form').submit();">Supprimer un avis de recherche</a>
 
     {{ include('animal/_delete_form.html.twig') }}
