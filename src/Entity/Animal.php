@@ -29,7 +29,8 @@ class Animal
     /**
      * @var string|null
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message= "Le champs Nom ne peut être vide")
+     * @Assert\Length(min=2)
      */
     private $nom;
 
@@ -41,7 +42,8 @@ class Animal
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message= "Le champs Commentaire ne peut être vide")
+     * @Assert\Length(min=20)
      */
     private $commentaire;
 
@@ -119,7 +121,7 @@ class Animal
         return $this->nom;
     }
 
-    public function setNom(string $nom): self
+    public function setNom(?string $nom): self
     {
         $this->nom = $nom;
 
@@ -150,7 +152,7 @@ class Animal
         return $this->commentaire;
     }
 
-    public function setCommentaire(string $commentaire): self
+    public function setCommentaire(?string $commentaire): self
     {
         $this->commentaire = $commentaire;
 

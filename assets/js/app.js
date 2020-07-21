@@ -14,4 +14,4 @@ import 'popper.js';
 import bsCustomFileInput from 'bs-custom-file-input';
 bsCustomFileInput.init();
 
-import 'images.js'
+import '../js/images.js'

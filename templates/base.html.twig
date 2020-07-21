@@ -12,19 +12,20 @@
     </head>
     <body>
         
-    <section class="container-fluid">
-        {% include("partials/flashMessages.html.twig") %}
-        {% include("partials/navbar.html.twig") %}
-        <h1 class="border border-dark rounded p-2 m-2  text-center text-white bg-dark">{% block monTitre %}{% endblock %}</h1>
-        <div class="row">
-            <div class="col-12">
-                {% block body %}{% endblock %}
-                {% include 'partials/footer.html.twig'%}
-            </div>
+        <section class="container-fluid">
+            {% include("partials/flashMessages.html.twig") %}
+            {% include("partials/navbar.html.twig") %}
+            <main role="main" class="container">
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <h1 class="rounded  m-2 p-2 ">{% block monTitre %}{% endblock %}</h1>
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </main>
             
-        </div>
-
-    </section>
+            {% include 'partials/footer.html.twig'%}
+        </section>
     
         {{ encore_entry_script_tags('app') }}
         {% block javascripts %}{% endblock %}
