@@ -46,6 +46,32 @@ class User implements UserInterface
      */
     private $password;
 
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $prenom;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $telephone;
+
+     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isAdmin;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
     /**
      * @ORM\Column(type="boolean")
      */
@@ -76,35 +102,9 @@ class User implements UserInterface
     
     
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nom;
+   
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $prenom;
-
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
-    private $telephone;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isAdmin;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isActive;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Adresse::class, inversedBy="users")
-     */
-    private $adresse;
+    
 
     /**
      * User constructor
@@ -368,15 +368,4 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAdresse(): ?Adresse
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(?Adresse $adresse): self
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
 }

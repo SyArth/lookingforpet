@@ -8,7 +8,7 @@
 
 <div class="container">
     <div class="row flex">
-        {% for animal in animaux %}
+        {% for row in animaux |batch(3) %}
             {% include 'animal/_animaux.html.twig'%}
         {% endfor %}
     </div>

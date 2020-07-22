@@ -94,6 +94,7 @@ class Animal
     /**
     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="animal", orphanRemoval=true, cascade={"persist"})
     * @ORM\JoinColumn(nullable=false)
+    *@Assert\Image(maxSize="1024k")
     */
     private $images;
 

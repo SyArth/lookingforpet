@@ -14,12 +14,19 @@ h1 {
   border: none;
   border-radius: 0;
 }
-.alert-success{
+.alert-success {
   background-color: green;
 }
-.alert-error{
+.alert-error {
   background-color: red;
 }
-.alert-notice{
+.alert-notice {
   background-color: blue;
+}
+
+.image img {
+  transition: transform 0.3s ease-out;
+  &:hover {
+    transform: scale(1.075);
+  }
 }

@@ -1,7 +1,12 @@
+{% for animal in row %}
 <div class="col-md-4">
     <div class="card mb-4">
-        <div class="card-body">
-            <img src="uploads/photos/animal.png" alt="{{animal.nom}}">
+        <div class="image card-body bg-white rounded shadow">
+            <div class="mw-100 overflow-hidden">
+                <a href="{{path('animal_show', {slug: animal.slug, id: animal.id})}}">
+                    <img src="uploads/photos/animal.png" alt="{{animal.nom}}" class="w-100 rounded-top">
+                </a>
+            </div>
             <h5 class="card-title">
                 <a href="{{path('animal_show', {slug: animal.slug, id: animal.id})}}">{{ animal.nom | badge}}</a>
             </h5>
@@ -12,3 +17,4 @@
         </div>
     </div>
 </div>
+{% endfor %}

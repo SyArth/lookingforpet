@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Timestampable;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -10,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Image
 {
+    use Timestampable;
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

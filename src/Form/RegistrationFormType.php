@@ -65,6 +65,12 @@ class RegistrationFormType extends AbstractType
                     ])
                 ]
             ])
+            ->add('telephone', null, [
+                'label' => 'Téléphone'
+            ])
+            
+            ->add('isActive', null, ['label' => 'Actif ?', 'required' => false])
+            ->add('isAdmin', CheckboxType::class, ['label' =>'Administrateur ?', 'required' => false])
             ->add('Validez', SubmitType::class)
         ;
     }
