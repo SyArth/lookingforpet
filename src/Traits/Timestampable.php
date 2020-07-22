@@ -38,6 +38,12 @@ trait Timestampable
         return $this;
     }
 
+    public function __construct()
+    {
+        $this->setCreatedAt(new \DateTimeImmutable());
+        $this->setUpdatedAt(new \DateTimeImmutable());
+    }
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
@@ -45,10 +51,12 @@ trait Timestampable
      */
     public function setCreatedAtValue()
     {
-        if($this === null){
-            $this->setCreatedAt(new \DateTimeImmutable);
+        $this->setCreatedAt(new \DateTimeImmutable());
+        if($this != null){
+            $this->setUpdatedAt(new \DateTimeImmutable());
+
         }
-        $this->setUpdatedAt(new \DateTimeImmutable);
+        
     }
 
 }

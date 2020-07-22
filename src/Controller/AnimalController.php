@@ -58,11 +58,11 @@ class AnimalController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $images = $form->get('photos')->getData();
-            foreach($images as $image){
-                if ($image = $form['photo']->getData()) {
-                    $filename = bin2hex(random_bytes(6)).'.'.$image->guessExtension();
+            foreach($images as $im){
+                if ($im =$form['photo']->getData()) {
+                    $filename = bin2hex(random_bytes(6)).'.'.$im->guessExtension();
                 try {
-                    $image->move($uploadDirRelativePath, $filename);
+                    $im->move($uploadDirRelativePath, $filename);
                 } catch (FileException $e) {
                 }
                 $img = new Image();

@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\NotNull;
 
@@ -42,14 +44,16 @@ class AnimalType extends AbstractType
                 'label' => 'Notez les détails importants concernant votre compagnon (craint-il l\'homme ?)...',
                 
             ])
-            ->add('famille',TextType::class, [
+            ->add('famille',ChoiceType::class, [
                 'label' => 'Est-ce un chien ou un chat ?',
-                'required' => true
+                'required' => false
             ])
             ->add('tatouage', TextType::class, [
-                'label' => 'Quel est son numéro de Tatouage ?'])
+                'label' => 'Quel est son numéro de Tatouage ?',
+                'required' => false])
             ->add('puce', TextType::class, [
-                'label' => 'Quel est son numéro de puce ?'])
+                'label' => 'Quel est son numéro de puce ?',
+                'required' => false])
         ;
     }
   

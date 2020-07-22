@@ -14,14 +14,14 @@
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_row(registrationForm.password.first) }}
+        {{ form_row(registrationForm.password.second) }}    
         {{ form_row(registrationForm.nom)}}
         {{ form_row(registrationForm.prenom)}}
         {{ form_row(registrationForm.telephone)}}
-
-    {{ form_end(registrationForm) }}
+        {{ form_row(registrationForm.agreeTerms) }}
+        <button class="btn btn-success btn-block" type="submit">{{ button_label|default('Validez') }}</button>
+        {{ form_end(registrationForm) }}
     
-    <button class="btn btn-success btn-block" type="submit" value="{{submitButtonText}}">{{ button_label|default('Validez') }}</button>
 
 {% endblock %}

@@ -14,7 +14,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Cet email est déjà utilisé. Entrez un nouvel email.")
  * @UniqueEntity("slug")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -65,12 +65,12 @@ class User implements UserInterface
      /**
      * @ORM\Column(type="boolean")
      */
-    private $isAdmin;
+    private $isAdmin = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isActive;
+    private $isActive = true;
 
     /**
      * @ORM\Column(type="boolean")
@@ -99,12 +99,6 @@ class User implements UserInterface
      */
     private $signalements;
 
-    
-    
-
-   
-
-    
 
     /**
      * User constructor
