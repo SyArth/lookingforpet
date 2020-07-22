@@ -17,17 +17,17 @@ class UserFixtures extends Fixture
     /**
      * @var string
      */
-    private string $uploadDirRelativePath;
+    private string $uploadsRelativeDir;
 
     /**
      * UserFixtures constructor.
      * @param Generator $generator
-     * @param string $uploadDirRelativePath
+     * @param string $uploadsRelativeDir
      */
-    public function __construct(Generator $generator, string $uploadDirRelativePath)
+    public function __construct(Generator $generator, string $uploadsRelativeDir)
     {
         $this->generator = $generator;
-        $this->uploadDirRelativePath = $uploadDirRelativePath;
+        $this->uploadsRelativeDir = $uploadsRelativeDir;
     }
 
     /**
@@ -36,22 +36,30 @@ class UserFixtures extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-        $rand = rand(200, 300);
-        for($i=1; $i <= $rand; $i++){
-            $user = new User();
-            $user->setPseudo($this->generator->unique()->city);
-            $user->setEmail($this->generator->unique()->email);
-            $user->setPassword("password");
-            $user->setPrenom($this->generator->firstName);
-            $user->setNom($this->generator->lastName);
-            $user->setTelephone($this->generator->phoneNumber);
-            $user->setIsAdmin( $this->generator->boolean(false) );
-            $user->setIsActive( $this->generator->boolean('70%? true : false') );
-            $manager->persist($user);   
+        $userAlpha = new User();
+            $userAlpha->setPseudo('Alpha');
+            $userAlpha->setEmail('alpha@domaine.fr');
+            $userAlpha->setPassword("password");
+            $userAlpha->setPrenom('Al');
+            $userAlpha->setNom('Phabet');
+            $userAlpha->setTelephone('0601020304');
+            $userAlpha->setIsAdmin(false);
+            $userAlpha->setIsActive(true);
+            $manager->persist($userAlpha);   
 
-            $this->setReference(sprintf("user"), $user);
-        }
-        $users = [$user];
+        $userAdmin = new User();
+        $userAdmin->setPseudo('Admin');
+        $userAdmin->setEmail('admin@domaine.fr');
+        $userAdmin->setPassword("password");
+        $userAdmin->setPrenom('Pénélope');
+        $userAdmin->setNom('Solette');
+        $userAdmin->setTelephone('0601020304');
+        $userAdmin->setIsAdmin(true);
+        $userAdmin->setIsActive(true);
+        $manager->persist($userAdmin);   
+
+      
+        
         $manager->flush();
     }
 }

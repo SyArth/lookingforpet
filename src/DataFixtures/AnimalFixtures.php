@@ -21,20 +21,20 @@ class AnimalFixtures extends Fixture implements DependentFixtureInterface
      */
     private Generator $generator;
 
-    /**
+   /**
      * @var string
      */
-    private string $uploadDirRelativePath;
+    private string $uploadsRelativeDir;
 
     /**
      * UserFixtures constructor.
      * @param Generator $generator
-     * @param string $uploadDirRelativePath
+     * @param string $uploadsRelativeDir
      */
-    public function __construct(Generator $generator, string $uploadDirRelativePath)
+    public function __construct(Generator $generator, string $uploadsRelativeDir)
     {
         $this->generator = $generator;
-        $this->uploadDirRelativePath = $uploadDirRelativePath;
+        $this->uploadsRelativeDir = $uploadsRelativeDir;
     }
 
     /**
@@ -44,15 +44,14 @@ class AnimalFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
 
-        /** @var User $user */
-        $user = $this->getReference(sprintf("user"));
+   
   
          /** @var Famille $famille */
         $famille1 = $this->getReference(sprintf("famille1"));
         $famille2 = $this->getReference(sprintf("famille2"));
         $familles = [$famille1, $famille2];
         
-      
+
         $rand = rand(400, 500);
         for($i=1; $i <= $rand; $i++){           
             $animal = new Animal();
@@ -60,24 +59,38 @@ class AnimalFixtures extends Fixture implements DependentFixtureInterface
             $animal->setCommentaire($this->generator->realText($maxNbChars = 200, $indexSize = 2));
 
             $animal->setActive('80%? true : false');
-            $animal->getFamille('50%? $famille1 : $famille2');
+            $animal->setFamille($this->generator->randomElement($familles));
 
             /** @var Image $image */
             $image = new Image();
-            $image->setNom(sprintf('%s %s',$this->uploadDirRelativePath,'animal.png'));
+            $image->setNom(sprintf('%s %s',$this->uploadsRelativeDir,'animal.png'));
             $image->setAlt('animal');
             
             /** @var Puce $puce */
-            $puce = $this->getReference(sprintf("puce"));
+            $puce = new Puce();
+            $puce->setNumero($this->generator->unique()->regexify('[0-9]{15}'));
+            $manager->persist($puce);
             $animal->setPuce($puce);
 
             /** @var Tatouage $tatouage */
-            $tatouage = $this->getReference(sprintf("tatouage"));         
+            $tatouage = new Tatouage();
+            $tatouage->setNumero($this->generator->unique()->regexify('[0-9][A-Z]{3}[0-9]{3}'));
+            $manager->persist($tatouage);        
             $animal->setTatouage($tatouage);
             
-            /** @var User $ser */
-            $user = $this->getReference(sprintf("user"));
-            $animal->setUser($user);
+           
+                /** @var User $user */
+                $user = new User();
+                $user->setPseudo($this->generator->unique()->city);
+                $user->setEmail($this->generator->unique()->email);
+                $user->setPassword("password");
+                $user->setPrenom($this->generator->firstName);
+                $user->setNom($this->generator->lastName);
+                $user->setTelephone($this->generator->phoneNumber);
+                $user->setIsAdmin( $this->generator->boolean(false) );
+                $user->setIsActive( $this->generator->boolean('70%? true : false') );
+                $manager->persist($user);   
+                $animal->setUser($user);
 
            
             $image->setAnimal($animal);
@@ -99,7 +112,6 @@ class AnimalFixtures extends Fixture implements DependentFixtureInterface
         return [
         UserFixtures::class,
         FamilleFixtures::class,
-        IdentificationFixtures::class,
         ];
     }
 }

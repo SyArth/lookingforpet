@@ -7,12 +7,14 @@ use App\Entity\Image;
 use App\Form\AnimalType;
 use App\Repository\AnimalRepository;
 use App\Repository\SignalementRepository;
+use App\Uploader\UploaderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/animaux")
@@ -46,31 +48,33 @@ class AnimalController extends AbstractController
             "range" => $range
         ]);
     }
-    /**
-     * @Route("/new", name="animal_new", methods={"GET","POST"})
-     */
-    public function new(Request $request, string $uploadDirRelativePath): Response
+ /**
+  * @Route("/new", name="animal_new", methods={"GET","POST"})
+  *
+  * @param Request $request
+  * @param UploaderInterface $uploader
+  * @return Response
+  */
+    public function new(
+        Request $request,
+        UploaderInterface $uploader
+        ): Response
     {
         $animal = new Animal();
-        $form = $this->createForm(AnimalType::class, $animal);
+
+        $form = $this->createForm(AnimalType::class, $animal, [
+            'validation groups' => ['default', 'create']
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $images = $form->get('photos')->getData();
-            foreach($images as $im){
-                if ($im =$form['photo']->getData()) {
-                    $filename = bin2hex(random_bytes(6)).'.'.$im->guessExtension();
-                try {
-                    $im->move($uploadDirRelativePath, $filename);
-                } catch (FileException $e) {
-                }
-                $img = new Image();
-                $animal->getImages($filename);
             
-            }
+            $file = $form->get('file')->getData();
+            
+            $animal->getImages($uploader->upload($file));
+            
 
-        }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($animal);
             $entityManager->flush();
@@ -100,8 +104,16 @@ class AnimalController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="animal_edit", methods={"GET","PUT"})
+     *
+     * @param Request $request
+     * @param Animal $animal
+     * @param UploaderInterface $uploader
+     * @return Response
      */
-    public function edit(Request $request, Animal $animal): Response
+    public function edit(Request $request,
+    Animal $animal,
+    UploaderInterface $uploader
+    ): Response
     {
         $form = $this->createForm(AnimalType::class, $animal, [
             'method' => 'PUT'
@@ -110,18 +122,15 @@ class AnimalController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $images = $form->get('images')->getData();
-            foreach($images as $image){
-                $fichierImage = md5(uniqid(). '.'. $image->guessExtension());
-                $image->move(
-                    $this->getParameter('images_directory'),
-                    $fichierImage
-                );
-                $img = new Image();
-                $img->setNom($fichierImage);
-                $animal->addImage($img);
+           
+            $file = $form->get('file')->getData();
 
+            if($file !== null){
+                $animal->getImages($uploader->upload($file));
             }
+            
+            
+        }
 
             $this->addFlash('success', 'Vous avez modifié cet avis de recherche !');
 
@@ -129,7 +138,7 @@ class AnimalController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('animal_index');
-        }
+        
 
         return $this->render('animal/edit.html.twig', [
             'animal' => $animal,

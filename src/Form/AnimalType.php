@@ -3,11 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Animal;
+use App\Entity\Famille;
 use App\Entity\Image;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -33,7 +35,9 @@ class AnimalType extends AbstractType
                 'required' => false,
                 'constraints' => [
                     new Image(['maxSize' => '1024k']),
-                    new NotNull()
+                    new NotNull([
+                        'groups' => 'create'
+                    ])
                 ],
             ])
             ->add('nom', TextType::class, [
@@ -44,9 +48,11 @@ class AnimalType extends AbstractType
                 'label' => 'Notez les détails importants concernant votre compagnon (craint-il l\'homme ?)...',
                 
             ])
-            ->add('famille',ChoiceType::class, [
-                'label' => 'Est-ce un chien ou un chat ?',
-                'required' => false
+            ->add('famille', EntityType::class, [
+                'label' => 'Chat ou Chien ?',
+                'class' => Famille::class,
+                'choice_label' => 'nom',
+                'required' => true,
             ])
             ->add('tatouage', TextType::class, [
                 'label' => 'Quel est son numéro de Tatouage ?',

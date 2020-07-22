@@ -18,6 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -36,7 +37,7 @@ class RegistrationFormType extends AbstractType
                 'second_options' => ['label' => 'Répétez votre mot de passe'],
                 'constraints' => [
                     new NotBlank(),
-                    new Length(['min => 6', 'max => 4096'])
+                    new Length(['min' => '6', 'max' => '4096']),
                 ]
             ])
             ->add('nom', TextType::class, [

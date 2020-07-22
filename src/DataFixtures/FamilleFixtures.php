@@ -17,17 +17,17 @@ class FamilleFixtures extends Fixture
     /**
      * @var string
      */
-    private string $uploadDirRelativePath;
+    private string $uploadsRelativeDir;
 
     /**
      * UserFixtures constructor.
      * @param Generator $generator
-     * @param string $uploadDirRelativePath
+     * @param string $uploadsRelativeDir
      */
-    public function __construct(Generator $generator, string $uploadDirRelativePath)
+    public function __construct(Generator $generator, string $uploadsRelativeDir)
     {
         $this->generator = $generator;
-        $this->uploadDirRelativePath = $uploadDirRelativePath;
+        $this->uploadsRelativeDir = $uploadsRelativeDir;
     }
 
     /**

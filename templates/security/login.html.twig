@@ -18,7 +18,7 @@
 
     <label for="inputEmail">Email</label>
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Mot de passe :</label>
+    <label for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
     <input type="hidden" name="_csrf_token"
@@ -34,9 +34,8 @@
         </div>
 
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Valider
-    </button>
+        <button class="btn btn-success btn-block" type="submit">{{ button_label|default('Validez') }}</button>
+
 </form>
 <p><a href="{{path('app_forgot_password_request')}}"</a>Mot de passe oublié</p>
 

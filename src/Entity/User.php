@@ -63,6 +63,17 @@ class User implements UserInterface
     private $telephone;
 
      /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true, unique=true)
+     */
+    private $pseudo;
+
+
+     /**
      * @ORM\Column(type="boolean")
      */
     private $isAdmin = false;
@@ -82,17 +93,6 @@ class User implements UserInterface
      * 
      */
     private $animaux;
-
-
-    /**
-     * @ORM\Column(type="string", length=255, unique=true)
-     */
-    private $slug;
-
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true, unique=true)
-     */
-    private $pseudo;
 
     /**
      * @ORM\OneToMany(targetEntity=Signalement::class, mappedBy="user")
